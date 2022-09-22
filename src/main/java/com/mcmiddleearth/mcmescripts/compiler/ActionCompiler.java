@@ -125,6 +125,8 @@ public class ActionCompiler {
                                 VALUE_RANDOM_SPAWN          = "random_spawn",
                                 VALUE_MUSIC_START           = "start_sound",
                                 VALUE_MUSIC_STOP            = "stop_sound",
+                                VALUE_RESOURCE_MUSIC_START  = "start_resource_sound",
+                                VALUE_RESOURCE_MUSIC_STOP   = "stop_resource_sound",
                                 VALUE_GIVE_CHEST            = "give_chest",
                                 VALUE_RAIN_ITEM             = "rain_item",
                                 VALUE_TITLE                 = "title",
@@ -517,6 +519,16 @@ public class ActionCompiler {
                 playerSelector = SelectorCompiler.compilePlayerSelector(jsonObject);
                 musicId = PrimitiveCompiler.compileString(jsonObject.get(KEY_MUSIC_ID),null);
                 action = new SoundStopAction(playerSelector, musicId);
+                break;
+            case VALUE_RESOURCE_MUSIC_START:
+                playerSelector = SelectorCompiler.compilePlayerSelector(jsonObject);
+                musicId = PrimitiveCompiler.compileString(jsonObject.get(KEY_MUSIC_ID),null);
+                action = new ResourceSoundStartAction(playerSelector, musicId);
+                break;
+            case VALUE_RESOURCE_MUSIC_STOP:
+                playerSelector = SelectorCompiler.compilePlayerSelector(jsonObject);
+                musicId = PrimitiveCompiler.compileString(jsonObject.get(KEY_MUSIC_ID),null);
+                action = new ResourceSoundStopAction(playerSelector, musicId);
                 break;
             case VALUE_GIVE_CHEST:
                 mcmeSelector = SelectorCompiler.compileMcmeEntitySelector(jsonObject);
