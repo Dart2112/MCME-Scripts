@@ -1,19 +1,16 @@
 package com.mcmiddleearth.mcmescripts.trigger;
 
 
-import com.mcmiddleearth.entities.entities.VirtualEntity;
 import com.mcmiddleearth.mcmescripts.debug.DebugManager;
 import com.mcmiddleearth.mcmescripts.debug.Descriptor;
 import com.mcmiddleearth.mcmescripts.debug.Modules;
-import com.mcmiddleearth.mcmescripts.script.Script;
 import com.mcmiddleearth.mcmescripts.selector.PlayerSelector;
 import com.mcmiddleearth.mcmescripts.selector.VirtualEntitySelector;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 public abstract class Trigger {
 
-    private Script script;
+    private ITriggerContainer triggerContainer;
 
     private String name;
 
@@ -23,21 +20,21 @@ public abstract class Trigger {
     private PlayerSelector player;
     private Location location;
 
-    public void register(Script script) {
-        script.addTrigger(this);
-        this.script = script;
+    public void register(ITriggerContainer triggerContainer) {
+        triggerContainer.addTrigger(this);
+        this.triggerContainer = triggerContainer;
         //DebugManager.info(Modules.Trigger.register(this.getClass()),
         //        "Scrip: "+script.getName()+" Call once: "+callOnce);
     }
 
     public void unregister() {
-        script.removeTrigger(this);
+        triggerContainer.removeTrigger(this);
         //DebugManager.info(Modules.Trigger.unregister(this.getClass()),
         //        "Scrip: "+script.getName());
     }
 
-    public Script getScript() {
-        return script;
+    public ITriggerContainer getTriggerContainer() {
+        return triggerContainer;
     }
 
     public VirtualEntitySelector getEntity() {
@@ -64,8 +61,8 @@ public abstract class Trigger {
         this.location = location;
     }
 
-    public void setScript(Script script) {
-        this.script = script;
+    public void setTriggerContainer(ITriggerContainer triggerContainer) {
+        this.triggerContainer = triggerContainer;
     }
 
     public boolean isCallOnce() {

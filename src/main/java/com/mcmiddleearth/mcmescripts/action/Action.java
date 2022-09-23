@@ -23,7 +23,7 @@ public abstract class Action {
         //        "Delay: "+delay);
         int id = random.nextInt(10000);
         context.getDescriptor().addLine(this.getClass().getSimpleName()).indent()
-                               .addLine("Execution delayed by "+delay+" ticks with ID: "+id);
+                               .addLine("Execution delayed by " + delay + " ticks with ID: "+id);
         Bukkit.getScheduler().runTaskLater(MCMEScripts.getInstance(), ()-> {
             TriggerContext actionContext = new TriggerContext(context);
             actionContext.setDescriptor(new Descriptor("Execute action! ID: "+id).indent());

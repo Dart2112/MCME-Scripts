@@ -108,7 +108,4 @@ public final class MCMEScripts extends JavaPlugin {
                 pluginCommand.setTabCompleter((TabCompleter) executor);
         }
     }
-
-
-
 }

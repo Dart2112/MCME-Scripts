@@ -66,6 +66,7 @@ public class TriggerCompiler {
                                 VALUE_SELECTION_TRIGGER                 = "selection",
                                 VALUE_EXTERNAL_TRIGGER                  = "external";
 
+
     public static Set<Trigger> compile(JsonObject jsonData) {
         JsonElement triggerData = jsonData.get(KEY_TRIGGER);
         Set<Trigger> triggers = new HashSet<>(compileTriggers(triggerData));
@@ -74,7 +75,7 @@ public class TriggerCompiler {
         return triggers;
     }
 
-    private static Set<Trigger> compileTriggers(JsonElement triggerData) {
+    public static Set<Trigger> compileTriggers(JsonElement triggerData) {
         Set<Trigger> triggers = new HashSet<>();
         if(triggerData == null) return triggers;
         if(triggerData.isJsonArray()) {

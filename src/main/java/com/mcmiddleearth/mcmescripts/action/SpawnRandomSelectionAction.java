@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class SpawnRandomSelectionAction extends SelectingAction<McmeEntity> {
 
@@ -141,7 +140,7 @@ public class SpawnRandomSelectionAction extends SelectingAction<McmeEntity> {
                                     } else {
                                         McmeEntity entity = EntitiesPlugin.getEntityServer().spawnEntity(factory);
                                         //Logger.getGlobal().info("Spawn done!");
-                                        context.getScript().addEntity(entity);
+                                        context.getEntityContainer().addEntity(entity);
                                         entities.add(entity);
                                     }
                                 } catch (InvalidLocationException | InvalidDataException e) {
@@ -156,7 +155,7 @@ public class SpawnRandomSelectionAction extends SelectingAction<McmeEntity> {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        entities.forEach(entity -> context.getScript().removeEntity(entity));
+                        entities.forEach(entity -> context.getEntityContainer().removeEntity(entity));
                         EntitiesPlugin.getEntityServer().removeEntity(entities);
                     }
                 }.runTaskLater(MCMEScripts.getInstance(), lifespan);

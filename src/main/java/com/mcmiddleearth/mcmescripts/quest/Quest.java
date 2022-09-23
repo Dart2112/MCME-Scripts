@@ -147,6 +147,4 @@ public class Quest {
     public QuestData getQuestData() {
         return data;
     }
-
-
 }

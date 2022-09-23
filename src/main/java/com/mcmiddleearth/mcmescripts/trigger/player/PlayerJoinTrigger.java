@@ -20,7 +20,8 @@ public class PlayerJoinTrigger extends BukkitEventTrigger {
     public void playerJoin(PlayerJoinEvent event) {
         TriggerContext context = new TriggerContext(this)
                 .withPlayer(event.getPlayer())
-                .withFirstJoin(event.getPlayer().getLastLogin() == 0);
+                .withFirstJoin(event.getPlayer().getLastLogin() == 0)
+                .withContext("PlayerJoinTrigger.PlayerWhoJoined",event.getPlayer());
         call(context);
         //DebugManager.verbose(Modules.Trigger.call(this.getClass()),
         //        "Player: " + event.getPlayer().getName() + " First join: " + context.isFirstJoin());

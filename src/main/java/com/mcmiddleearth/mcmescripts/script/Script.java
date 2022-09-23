@@ -3,6 +3,7 @@ package com.mcmiddleearth.mcmescripts.script;
 import com.google.gson.JsonObject;
 import com.mcmiddleearth.entities.EntitiesPlugin;
 import com.mcmiddleearth.entities.entities.McmeEntity;
+import com.mcmiddleearth.mcmescripts.IEntityContainer;
 import com.mcmiddleearth.mcmescripts.compiler.ConditionCompiler;
 import com.mcmiddleearth.mcmescripts.compiler.EntityCompiler;
 import com.mcmiddleearth.mcmescripts.compiler.ScriptCompiler;
@@ -12,20 +13,19 @@ import com.mcmiddleearth.mcmescripts.debug.DebugManager;
 import com.mcmiddleearth.mcmescripts.debug.Descriptor;
 import com.mcmiddleearth.mcmescripts.debug.Modules;
 import com.mcmiddleearth.mcmescripts.trigger.Trigger;
+import com.mcmiddleearth.mcmescripts.trigger.ITriggerContainer;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 import com.mcmiddleearth.mcmescripts.utils.JsonUtils;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Script {
+public class Script implements ITriggerContainer, IEntityContainer {
 
     protected String name;
-
     private final Set<Trigger> triggers = new HashSet<>();
     private final Set<McmeEntity> entities = new HashSet<>();
 
@@ -56,6 +56,7 @@ public class Script {
                 assert jsonData!=null;
                 Set<Trigger> triggers = EntityCompiler.compile(jsonData);
                 triggers.forEach(trigger -> trigger.register(this));
+
                 triggers = TriggerCompiler.compile(jsonData);
                 triggers.forEach(trigger -> trigger.register(this));
                 //ScriptCompiler.load(jsonData,this);
@@ -84,7 +85,7 @@ public class Script {
         Script instance = this;
         TriggerContext context = new TriggerContext(new Trigger() {
             @Override
-            public Script getScript() {
+            public Script getTriggerContainer() {
                 return instance;
             }
             @Override
@@ -117,6 +118,11 @@ public class Script {
         triggers.remove(trigger);
     }
 
+    @Override
+    public IEntityContainer getEntityContainer() {
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -125,6 +131,7 @@ public class Script {
         return dataFile;
     }
 
+    @Override
     public Set<Trigger> getTriggers(String name) {
         if(name.equals("*")) return new HashSet<>(triggers);
         if(name.endsWith("*")) {
@@ -137,6 +144,7 @@ public class Script {
         }
     }
 
+    @Override
     public Set<Trigger> getTriggers() {
         return triggers;
     }

@@ -9,11 +9,8 @@ import com.mcmiddleearth.mcmescripts.action.Action;
 import com.mcmiddleearth.mcmescripts.compiler.LocationCompiler;
 import com.mcmiddleearth.mcmescripts.debug.DebugManager;
 import com.mcmiddleearth.mcmescripts.debug.Modules;
-import com.mcmiddleearth.mcmescripts.script.Script;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.logging.Logger;
 
 public class ExternalTrigger extends DecisionTreeTrigger {
 
@@ -23,8 +20,8 @@ public class ExternalTrigger extends DecisionTreeTrigger {
     }
 
     @Override
-    public void register(Script script) {
-        super.register(script);
+    public void register(ITriggerContainer triggerContainer) {
+        super.register(triggerContainer);
         MCMEScripts.getExternalTriggerManager().register(this);
     }
 

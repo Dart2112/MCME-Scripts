@@ -9,8 +9,8 @@ public abstract class QuestCondition extends Condition {
 
     @Override
     public final boolean test(TriggerContext context) {
-        if(context.getScript() instanceof Stage) {
-            return test(((Stage)context.getScript()).getQuest(),context);
+        if(context.getTriggerContainer() instanceof Stage) {
+            return test(((Stage)context.getTriggerContainer()).getQuest(),context);
         }
         return false;
     }

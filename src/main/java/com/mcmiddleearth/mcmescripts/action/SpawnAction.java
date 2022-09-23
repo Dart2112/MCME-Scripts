@@ -3,12 +3,10 @@ package com.mcmiddleearth.mcmescripts.action;
 import com.mcmiddleearth.entities.EntitiesPlugin;
 import com.mcmiddleearth.entities.api.VirtualEntityFactory;
 import com.mcmiddleearth.entities.entities.McmeEntity;
-import com.mcmiddleearth.entities.entities.VirtualEntity;
 import com.mcmiddleearth.entities.exception.InvalidDataException;
 import com.mcmiddleearth.entities.exception.InvalidLocationException;
 import com.mcmiddleearth.mcmescripts.MCMEScripts;
-import com.mcmiddleearth.mcmescripts.debug.DebugManager;
-import com.mcmiddleearth.mcmescripts.debug.Modules;
+import com.mcmiddleearth.mcmescripts.script.Script;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,7 +20,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class SpawnAction extends Action  {
 
@@ -67,7 +64,7 @@ public class SpawnAction extends Action  {
                     spawnRealEntity(factory);
                 } else {
                     McmeEntity entity = EntitiesPlugin.getEntityServer().spawnEntity(factory);
-                    context.getScript().addEntity(entity);
+                    context.getEntityContainer().addEntity(entity);
                     context.withEntity(entity);
                     entities.add(entity);
                 }
@@ -79,7 +76,7 @@ public class SpawnAction extends Action  {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    entities.forEach(entity -> context.getScript().removeEntity(entity));
+                    entities.forEach(entity -> context.getEntityContainer().removeEntity(entity));
                     EntitiesPlugin.getEntityServer().removeEntity(entities);
                 }
             }.runTaskLater(MCMEScripts.getInstance(), lifespan);

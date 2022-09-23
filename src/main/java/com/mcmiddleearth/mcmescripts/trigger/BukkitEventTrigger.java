@@ -2,7 +2,6 @@ package com.mcmiddleearth.mcmescripts.trigger;
 
 import com.mcmiddleearth.mcmescripts.MCMEScripts;
 import com.mcmiddleearth.mcmescripts.action.Action;
-import com.mcmiddleearth.mcmescripts.script.Script;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -14,9 +13,9 @@ public abstract class BukkitEventTrigger extends EventTrigger implements Listene
     }
 
     @Override
-    public void register(Script script) {
+    public void register(ITriggerContainer triggerContainer) {
         Bukkit.getPluginManager().registerEvents(this, MCMEScripts.getInstance());
-        super.register(script);
+        super.register(triggerContainer);
     }
 
     @Override

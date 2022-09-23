@@ -18,7 +18,7 @@ public class ExternalTriggerManager {
     }
 
     public void call(String script, String triggerName, String[] args) {
-        externalTriggers.stream().filter(trigger -> trigger.getScript().getName().equals(script)
+        externalTriggers.stream().filter(trigger -> trigger.getTriggerContainer().getName().equals(script)
                                                     && trigger.getName().equals(triggerName))
                 .forEach(trigger -> trigger.call(args));
     }

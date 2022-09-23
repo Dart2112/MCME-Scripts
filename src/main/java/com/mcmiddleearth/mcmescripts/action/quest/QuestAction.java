@@ -9,8 +9,8 @@ public abstract class QuestAction extends Action {
 
     @Override
     protected final void handler(TriggerContext context) {
-        if(context.getScript() instanceof Stage) {
-            handler(((Stage) context.getScript()).getQuest(), context);
+        if(context.getTriggerContainer() instanceof Stage) {
+            handler(((Stage) context.getTriggerContainer()).getQuest(), context);
         }
     }
 

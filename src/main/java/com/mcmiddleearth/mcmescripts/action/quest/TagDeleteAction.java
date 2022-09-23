@@ -1,5 +1,6 @@
 package com.mcmiddleearth.mcmescripts.action.quest;
 
+import com.mcmiddleearth.mcmescripts.action.bossbattle.BossBattleAction;
 import com.mcmiddleearth.mcmescripts.quest.Quest;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 

@@ -137,7 +137,6 @@ Logger.getGlobal().info("create quest loader: "+file.getName());
 
                 //todo: Delete outdated quests (long period check!!!)
                 if(System.currentTimeMillis() > lastQuestLifetimeCheck + questLifetimeCheckPeriod) {
-
                     lastQuestLifetimeCheck = System.currentTimeMillis();
                 }
 

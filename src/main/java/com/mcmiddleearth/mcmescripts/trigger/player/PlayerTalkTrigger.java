@@ -23,7 +23,9 @@ public class PlayerTalkTrigger extends BukkitEventTrigger {
         if(!ChatColor.stripColor(event.message().toString()).startsWith("!")) return;
         TriggerContext context = new TriggerContext(this)
                 .withPlayer(event.getPlayer())
-                .withMessage(PlainTextComponentSerializer.plainText().serialize(event.message()));
+                .withMessage(PlainTextComponentSerializer.plainText().serialize(event.message()))
+                .withContext("PlayerTalkTrigger.PlayerWhoTalked",event.getPlayer())
+                .withContext("PlayerTalkTrigger.PlayerMessage",PlainTextComponentSerializer.plainText().serialize(event.message()));
         if(event.isAsynchronous()) {
             new BukkitRunnable() {
                 @Override

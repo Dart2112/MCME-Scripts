@@ -1,7 +1,5 @@
 package com.mcmiddleearth.mcmescripts.action;
 
-import com.mcmiddleearth.mcmescripts.debug.DebugManager;
-import com.mcmiddleearth.mcmescripts.debug.Modules;
 import com.mcmiddleearth.mcmescripts.trigger.Trigger;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 
@@ -35,7 +33,7 @@ public class TriggerRegisterAction extends Action {
     @Override
     public void handler(TriggerContext context) {
         //DebugManager.verbose(Modules.Action.execute(this.getClass()),"Registering "+triggers.size()+" triggers.");
-        triggers.forEach(trigger -> trigger.register(context.getScript()));
+        triggers.forEach(trigger -> trigger.register(context.getTriggerContainer()));
     }
 
 }

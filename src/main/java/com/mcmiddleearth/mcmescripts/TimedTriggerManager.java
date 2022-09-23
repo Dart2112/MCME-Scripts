@@ -7,8 +7,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.HashSet;
 import java.util.Set;
 
-public class
-TimedTriggerManager {
+public class TimedTriggerManager {
 
     public static final int MIN_TRIGGER_CHECK_PERIOD = MCMEScripts.getConfigInt(ConfigKeys.TRIGGER_CHECKER_PERIOD,10);
     private static BukkitTask timedTriggerTask;

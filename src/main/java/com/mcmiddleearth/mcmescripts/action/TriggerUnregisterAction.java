@@ -1,8 +1,5 @@
 package com.mcmiddleearth.mcmescripts.action;
 
-import com.mcmiddleearth.mcmescripts.debug.DebugManager;
-import com.mcmiddleearth.mcmescripts.debug.Descriptor;
-import com.mcmiddleearth.mcmescripts.debug.Modules;
 import com.mcmiddleearth.mcmescripts.trigger.Trigger;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 
@@ -46,7 +43,7 @@ public class TriggerUnregisterAction extends Action {
     @Override
     public void handler(TriggerContext context) {
         //DebugManager.verbose(Modules.Action.execute(this.getClass()),"Unregistering "+ triggerNames.size()+" trigger names.");
-        triggerNames.forEach(name-> context.getScript().getTriggers(name).forEach(Trigger::unregister));
+        triggerNames.forEach(name-> context.getTriggerContainer().getTriggers(name).forEach(Trigger::unregister));
         triggers.forEach(Trigger::unregister);
     }
 

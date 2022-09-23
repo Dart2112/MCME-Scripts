@@ -4,7 +4,6 @@ import com.mcmiddleearth.entities.EntitiesPlugin;
 import com.mcmiddleearth.entities.events.listener.McmeEventListener;
 import com.mcmiddleearth.mcmescripts.MCMEScripts;
 import com.mcmiddleearth.mcmescripts.action.Action;
-import com.mcmiddleearth.mcmescripts.script.Script;
 
 public abstract class EntitiesEventTrigger extends EventTrigger implements McmeEventListener {
 
@@ -13,8 +12,8 @@ public abstract class EntitiesEventTrigger extends EventTrigger implements McmeE
     }
 
     @Override
-    public void register(Script script) {
-        super.register(script);
+    public void register(ITriggerContainer triggerContainer) {
+        super.register(triggerContainer);
         EntitiesPlugin.getEntityServer().registerEvents(MCMEScripts.getInstance(),this);
     }
 

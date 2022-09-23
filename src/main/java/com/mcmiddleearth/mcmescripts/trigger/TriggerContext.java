@@ -3,17 +3,19 @@ package com.mcmiddleearth.mcmescripts.trigger;
 import com.mcmiddleearth.entities.ai.goal.Goal;
 import com.mcmiddleearth.entities.entities.McmeEntity;
 import com.mcmiddleearth.entities.events.events.McmeEntityEvent;
+import com.mcmiddleearth.mcmescripts.IEntityContainer;
 import com.mcmiddleearth.mcmescripts.debug.Descriptor;
 import com.mcmiddleearth.mcmescripts.quest.party.Party;
 import com.mcmiddleearth.mcmescripts.quest.Stage;
-import com.mcmiddleearth.mcmescripts.script.Script;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TriggerContext {
 
     private final Trigger trigger;
-
     private Player player;
     private String message;
     private String name;
@@ -32,16 +34,22 @@ public class TriggerContext {
 
     private Descriptor descriptor;
 
+    private final Map<String,Object> contextMap = new HashMap<>();
+
     public TriggerContext(Trigger trigger) {
         this.trigger = trigger;
-        if(trigger.getScript() instanceof Stage) {
-            party = ((Stage) trigger.getScript()).getQuest().getParty();
+
+
+
+
+        if(trigger.getTriggerContainer() instanceof Stage) {
+            party = ((Stage) trigger.getTriggerContainer()).getQuest().getParty();
         }
         this.location = trigger.getLocation();
         this.player = (trigger.getPlayer()!=null?trigger.getPlayer().selectPlayer(this).stream().findFirst().orElse(null):null);
         this.entity = (trigger.getEntity()!=null?trigger.getEntity().select(this).stream().findFirst().orElse(null):null);
         descriptor = new Descriptor("Event Log:").indent()
-                .addLine(trigger.getClass().getSimpleName()+": "+trigger.getScript().getName()+"."+trigger.getName())
+                .addLine(trigger.getClass().getSimpleName()+": "+trigger.getTriggerContainer().getName()+"."+trigger.getName())
                 .addLine("Event location: "+(location!=null?location:"--none--"))
                 .addLine("Event player: "+(player!=null?player.getName():"--none--"))
                 .addLine("Event entity: "+(entity!=null?entity.getName():"--none--"));
@@ -65,8 +73,12 @@ public class TriggerContext {
         return trigger;
     }
 
-    public Script getScript() {
-        return  trigger.getScript();
+    public ITriggerContainer getTriggerContainer() {
+        return trigger.getTriggerContainer();
+    }
+
+    public IEntityContainer getEntityContainer() {
+        return trigger.getTriggerContainer().getEntityContainer();
     }
 
     public Player getPlayer() {
@@ -94,6 +106,13 @@ public class TriggerContext {
 
     public String getMessage() {
         return message;
+    }
+
+
+    public TriggerContext withContext(String key, Object message) {
+        this.contextMap.put(key,message);
+        getDescriptor().addLine("key: " + key + ", Message: " + message);
+        return this;
     }
 
     public TriggerContext withMessage(String message) {
