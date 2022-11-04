@@ -140,8 +140,8 @@ public class DriveUtil {
                 os.write(out);
                 os.flush();
             }
-            //JsonParser parser = new JsonParser();
-            JsonElement response = JsonParser.parseReader(new JsonReader(new InputStreamReader(http.getInputStream())));
+            JsonParser parser = new JsonParser();
+            JsonElement response = parser.parse(new JsonReader(new InputStreamReader(http.getInputStream())));
             JsonElement tokenJson = response.getAsJsonObject().get("access_token");
             if(tokenJson instanceof JsonPrimitive) {
                 String token = tokenJson.getAsString();

@@ -5,7 +5,7 @@ import com.mcmiddleearth.mcmescripts.action.Action;
 import com.mcmiddleearth.mcmescripts.trigger.BukkitEventTrigger;
 import com.mcmiddleearth.mcmescripts.trigger.TriggerContext;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -23,7 +23,7 @@ public class PlayerTalkTrigger extends BukkitEventTrigger {
         if(!ChatColor.stripColor(event.message().toString()).startsWith("!")) return;
         TriggerContext context = new TriggerContext(this)
                 .withPlayer(event.getPlayer())
-                .withMessage(PlainTextComponentSerializer.plainText().serialize(event.message()));
+                .withMessage(PlainComponentSerializer.plain().serialize(event.message()));
         if(event.isAsynchronous()) {
             new BukkitRunnable() {
                 @Override
