@@ -22,6 +22,8 @@ public final class MCMEScripts extends JavaPlugin {
     private static ScriptManager scriptManager;
     private static MCMEScripts instance;
 
+    private static long ticks = 0;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -39,6 +41,7 @@ public final class MCMEScripts extends JavaPlugin {
         setExecutor("party", new PartyCommandHandler("party"));
         Bukkit.getScheduler().runTaskLater(this, this::enableScripts,
                                             MCMEScripts.getConfigInt(ConfigKeys.START_UP_DELAY,95));
+        Bukkit.getScheduler().runTaskTimer(this, MCMEScripts::incrementTick, 1L, 1L);
     }
 
     @Override
@@ -109,6 +112,16 @@ public final class MCMEScripts extends JavaPlugin {
         }
     }
 
+    private static void incrementTick() {
+        ticks++;
+    }
+
+    /**
+     * Returns the current tick. Workaround for Magma, which doesn't support {@link Bukkit#getCurrentTick()}.
+     */
+    public static long getCurrentTick() {
+        return ticks;
+    }
 
 
 }

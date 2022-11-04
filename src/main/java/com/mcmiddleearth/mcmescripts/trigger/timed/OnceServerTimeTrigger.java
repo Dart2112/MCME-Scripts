@@ -1,9 +1,7 @@
 package com.mcmiddleearth.mcmescripts.trigger.timed;
 
+import com.mcmiddleearth.mcmescripts.MCMEScripts;
 import com.mcmiddleearth.mcmescripts.action.Action;
-import com.mcmiddleearth.mcmescripts.debug.DebugManager;
-import com.mcmiddleearth.mcmescripts.debug.Modules;
-import org.bukkit.Bukkit;
 
 public class OnceServerTimeTrigger extends OnceTrigger {
 
@@ -15,7 +13,7 @@ public class OnceServerTimeTrigger extends OnceTrigger {
 
     @Override
     public long getCurrentTime() {
-        return Bukkit.getCurrentTick();
+        return MCMEScripts.getCurrentTick();
 
     }
 }
